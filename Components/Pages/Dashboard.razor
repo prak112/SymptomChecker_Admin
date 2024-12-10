@@ -1,0 +1,100 @@
+@page "/dashboard"
+@using SymptomChecker_Admin2.Services
+@using SymptomChecker_Admin2.Models
+@using SymptomChecker_Admin2.Services.Interfaces
+@inject IAdminApiService AdminApiService
+@inject IAuthApiService AuthApiService
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+
+<h1>Admin Dashboard</h1>
+
+<button class="ml-auto btn btn-outline-danger" @onclick="ManageAdminLogout">
+    Logout
+</button>
+
+<button class="btn btn-info"  >
+    Get All Diagnosis
+</button>
+
+@if (users == null)
+{
+    <p>Loading...</p>
+}
+else if (users.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Registration Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                <tr>
+                    <td>@user.Username</td>
+                    <td>@user.RegistrationTime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else 
+{
+    
+}
+
+
+
+@code {
+    private IEnumerable<UserModel> users = new List<UserModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await AdminApiService.GetUsers();
+            if (response.Any())
+            {
+                users = response.ToList();
+            }
+            else
+            {
+                // Show error message
+                NavigationManager.NavigateTo("/error");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching users from Server : {ex.Message}");
+        }
+    }
+
+    // private async Task FetchDiagnosis() {
+    //     try
+    //     {
+
+    //     }
+    //     catch(Exception ex)
+    //     {
+    //         Console.WriteLine($"Error fetching diagnosis from Server : {ex.Message}");
+    //     }
+    // }
+
+    private async Task ManageAdminLogout()
+    {
+        try 
+        {
+            await AuthApiService.LogoutAsync();
+            NavigationManager.NavigateTo("/login");
+        }
+        catch (Exception ex) 
+        {
+            Console.WriteLine($"Error Logging out : {ex.Message}");
+
+        }
+    }
+}

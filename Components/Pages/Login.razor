@@ -1,0 +1,52 @@
+﻿@page "/login"
+@using SymptomChecker_Admin2.Services
+@using SymptomChecker_Admin2.Models
+@using SymptomChecker_Admin2.Services.Interfaces
+@inject IAuthApiService AuthApiService
+@inject NavigationManager NavigationManager
+
+@rendermode InteractiveServer
+
+<h1>Login</h1>
+
+<EditForm method="post" Model="@loginModel" OnValidSubmit="AuthenticateAdmin" FormName="login">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group mb-3">
+        <label for="username">Username</label>
+        <InputText id="username" type="username" class="form-control" @bind-Value="loginModel.Username" />
+    </div>
+    <div class="form-group mb-3">
+        <label for="password">Password</label>
+        <InputText id="password" type="password" class="form-control" @bind-Value="loginModel.Password" />
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</EditForm>
+
+
+@code {
+    [SupplyParameterFromForm]
+    private LoginModel loginModel { get; set; } = new();
+    private async Task AuthenticateAdmin()
+    {
+        try
+        {
+            var response = await AuthApiService.LoginAsync(loginModel.Username, loginModel.Password);
+            if (response)
+            {
+                // Navigate to home page
+                NavigationManager.NavigateTo("/dashboard");
+            }
+            else
+            {
+                // Show error message
+                NavigationManager.NavigateTo("/error");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(
+                $"Error rendering Login component : {ex.Message}");
+        }
+    }
+}
