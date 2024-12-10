@@ -8,37 +8,38 @@
         "sslPort": 44330
       }
     },
-    "profiles": {
-      "http": {
-        "commandName": "Project",
-        "dotnetRunMessages": true,
-        "launchBrowser": true,
-        "applicationUrl": "http://localhost:5263",
-        "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development",
-          "AUTH_API_URL": "http://localhost:3003/public/auth",
-          "ADMIN_API_URL": "http://localhost:3003/api/protected/admin"
-        }
-      },
-      "https": {
-        "commandName": "Project",
-        "dotnetRunMessages": true,
-        "launchBrowser": true,
-        "applicationUrl": "https://localhost:7050;http://localhost:5263",
-        "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development",
-          "AUTH_API_URL": "http://localhost:3003/public/auth",
-          "ADMIN_API_URL": "http://localhost:3003/api/protected/admin"
-        }
-      },
-      "IIS Express": {
-        "commandName": "IISExpress",
-        "launchBrowser": true,
-        "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development",
-          "AUTH_API_URL": "http://localhost:3003/public/auth",
-          "ADMIN_API_URL": "http://localhost:3003/api/protected/admin"
-        }
+  "profiles": {
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7050;http://localhost:5263",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "AUTH_API_URL": "http://localhost:3003/public/auth",
+        "ADMIN_API_URL": "http://localhost:3003/api/protected/admin"
+      }
+    },
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:5263",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "AUTH_API_URL": "http://localhost:3003/public/auth",
+        "ADMIN_API_URL": "http://localhost:3003/api/protected/admin"
+      }
+    },
+
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "AUTH_API_URL": "http://localhost:3003/public/auth",
+        "ADMIN_API_URL": "http://localhost:3003/api/protected/admin"
       }
     }
+  }
   }
